@@ -1,0 +1,56 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:5000",
+  "dependencies": {
+    "@codemirror/lang-html": "^6.4.5",
+    "@codemirror/lang-javascript": "^6.1.9",
+    "@codemirror/lang-less": "^6.0.1",
+    "@fullcalendar/core": "^6.1.8",
+    "@fullcalendar/daygrid": "^6.1.8",
+    "@fullcalendar/interaction": "^6.1.8",
+    "@fullcalendar/react": "^6.1.8",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@uiw/codemirror-theme-dracula": "^4.21.7",
+    "@uiw/react-codemirror": "^4.21.7",
+    "axios": "^1.4.0",
+    "react": "^16.14.0",
+    "react-bootstrap": "^2.8.0",
+    "react-dom": "^16.14.0",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^4.10.1",
+    "react-redux": "^8.1.1",
+    "react-responsive-modal": "^6.4.2",
+    "react-router-dom": "^6.14.1",
+    "react-scripts": "3.4.2",
+    "simple-peer": "^9.11.0",
+    "socket.io-client": "^2.3.0",
+    "styled-components": "^5.1.1",
+    "uniqid": "^5.4.0"
+  },
+  "scripts": {
+    "start": "react-scripts --openssl-legacy-provider start ",
+    "build": "react-scripts --openssl-legacy-provider build ",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

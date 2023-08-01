@@ -1,0 +1,24 @@
+.code-main-container {
+    background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    display: flex;
+    z-index: 9999;
+}
+
+.code_mirror_container{
+    padding: 10px;
+}
+
+.close-icon:hover{
+    cursor: pointer;
+}
