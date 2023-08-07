@@ -25,3 +25,7 @@
   height: 4rem !important;
   width: 4rem !important;
 }
+
+.notification:hover{
+  cursor: pointer;
+}

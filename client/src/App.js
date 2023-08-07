@@ -12,21 +12,25 @@ import { useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import Code from "./components/user/Code/Code";
 import UsersList from "./components/user/UserList/UsersList";
+import { Notifications } from "react-push-notification";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
   const currentValue = useSelector((state) => state.profileSwitch.visible);
   const codeSection = useSelector((state) => state.codeSwitch.visible);
-  const usersListSection = useSelector((state) => state.usersListSwitch.visible)
+  const usersListSection = useSelector(
+    (state) => state.usersListSwitch.visible
+  );
 
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
+      <Notifications className="notification"/>
       {loading && (
         <div className="spinner-parent">
           <div className="spinner-border" role="status"></div>
         </div>
       )}
-      <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         {/* Home */}
         <Route
@@ -62,7 +66,7 @@ function App() {
           element={
             <ProtectedRoute>
               {codeSection && <Code />}
-              {usersListSection && <UsersList/>}
+              {usersListSection && <UsersList />}
               <Room />
             </ProtectedRoute>
           }

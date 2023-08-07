@@ -8,6 +8,7 @@ import Chat from "../Chat/Chat";
 import "../css/Room.css";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
+import addNotification from "react-push-notification";
 
 const Room = (props) => {
   const navigate = useNavigate();
@@ -27,6 +28,17 @@ const Room = (props) => {
   const roomId = useParams().roomID;
 
   useEffect(() => {
+    addNotification({
+      title: "Room ID",
+      duration: 30000,
+      subtitle: `Click here to copy : ${roomId}`,
+      onClick: (e) => {
+        toast.success("Copied To clipboard");
+        navigator.clipboard.writeText(roomId);
+      },
+      backgroundTop: "black",
+      backgroundBottom: "grey",
+    });
     // Get Video Devices
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       console.log(devices);
