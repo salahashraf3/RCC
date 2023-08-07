@@ -18,7 +18,12 @@ import Notifications from "react-notifications-menu";
 TimeAgo.addDefaultLocale(en);
 
 function Home() {
-  const [notificationData, setnotificationData] = useState([]);
+  const [notificationData, setnotificationData] = useState([
+    {
+      message: "Test Notification",
+      receivedTime: <ReactTimeAgo date={new Date()} locale="en-US" />,
+    },
+  ]);
   const userData = useUserData();
   const currentTheme = useSelector((state) => state.themeSwitch.dark);
 

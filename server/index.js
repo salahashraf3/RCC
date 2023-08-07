@@ -37,12 +37,12 @@ io.on("connection", (socket) => {
 
     var job = new CronJob(
       "* * * * * *",
-       ()  => {
+        ()  => {
         let schedules = Userdata.schedules
         schedules.forEach((element) => {
           let todayDate = new Date()
           let date = new Date(element.date)
-          if(todayDate == date){
+          if(todayDate >= date){
             socket.emit("send-notifications" , {data: element})
           }
         });

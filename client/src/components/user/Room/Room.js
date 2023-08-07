@@ -28,17 +28,7 @@ const Room = (props) => {
   const roomId = useParams().roomID;
 
   useEffect(() => {
-    addNotification({
-      title: "Room ID",
-      duration: 30000,
-      subtitle: `Click here to copy : ${roomId}`,
-      onClick: (e) => {
-        toast.success("Copied To clipboard");
-        navigator.clipboard.writeText(roomId);
-      },
-      backgroundTop: "black",
-      backgroundBottom: "grey",
-    });
+    
     // Get Video Devices
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       console.log(devices);
@@ -53,6 +43,21 @@ const Room = (props) => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
+
+
+        addNotification({
+          title: "Room ID",
+          duration: 30000,
+          subtitle: `Click here to copy : ${roomId}`,
+          onClick: (e) => {
+            toast.success("Copied To clipboard");
+            navigator.clipboard.writeText(roomId);
+          },
+          backgroundTop: "black",
+          backgroundBottom: "grey",
+        });
+
+
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;
 
@@ -135,7 +140,8 @@ const Room = (props) => {
         });
       })
       .catch((error) => {
-        toast.error("Cannot start camera");
+        console.log(error);
+        toast.error("Cannot start camera. " + error);
         navigate("/");
       });
 

@@ -68,13 +68,6 @@ const getUserData = async (req, res) => {
   try {
     const data = await User.findById(req.body.userId);
 
-
-   
-    
-    
-
-
-
     if (data) {
       res
         .status(200)
