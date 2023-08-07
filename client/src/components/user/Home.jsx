@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./css/Home.css";
 import { FaRegUser, FaThemeco, FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,8 +10,15 @@ import socket from "../../socket";
 import { switchTheme } from "../../redux/themeSlice";
 import uniqid from "uniqid";
 import useUserData from "./Hooks/useUserData";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+import ReactTimeAgo from "react-time-ago";
+import Notifications from "react-notifications-menu";
+
+TimeAgo.addDefaultLocale(en);
 
 function Home() {
+  const [notificationData, setnotificationData] = useState([]);
   const userData = useUserData();
   const currentTheme = useSelector((state) => state.themeSwitch.dark);
 
@@ -65,6 +72,32 @@ function Home() {
     });
   };
 
+  useEffect(() => {
+    socket.emit("check-notifications", {
+      userId: localStorage.getItem("token"),
+    });
+    socket.on("send-notifications", ({ data }) => {
+      console.log(data);
+      setnotificationData([
+        ...notificationData,
+        {
+          message: data.title,
+          receivedTime: <ReactTimeAgo date={new Date()} locale="en-US" />,
+        },
+      ]);
+    });
+
+    socket.on("FE-receive-message", ({ msg, sender }) => {
+      setnotificationData([
+        ...notificationData,
+        {
+          message: `${sender} has send you a message`,
+          receivedTime: <ReactTimeAgo date={new Date()} locale="en-US" />,
+        },
+      ]);
+    });
+  }, []);
+
   return (
     <div className={currentTheme ? "home-container-dark" : "home-container"}>
       {/* Navbar */}
@@ -78,8 +111,17 @@ function Home() {
           />
         </div>
         <div className="profile">
-          <Link onClick={() => dispatch(switchTheme())}>
+          {/* <Link onClick={() => dispatch(switchTheme())}>
             <FaThemeco className="User-logo me-5" />
+          </Link> */}
+          <Link>
+            <div className="notification-container">
+              <Notifications
+                classNamePrefix="okrjoy"
+                width="250px"
+                data={notificationData}
+              />
+            </div>
           </Link>
           <Link onClick={() => dispatch(showProfile())}>
             {currentTheme ? (

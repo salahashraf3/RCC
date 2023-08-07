@@ -1,13 +1,14 @@
 //import User model
 const User = require("../model/userModel");
-//import chat history model
-const ChatHistoryModel = require("../model/chatHistory");
 //bcrypt config import
 const { securePassword } = require("../config/bcryptConfig");
 const bcrypt = require("bcrypt");
 //import jwt
 const jwt = require("jsonwebtoken");
 const chatHistoryModel = require("../model/chatHistory");
+
+
+
 
 //post register
 const postRegister = async (req, res) => {
@@ -66,6 +67,14 @@ const postLogin = async (req, res) => {
 const getUserData = async (req, res) => {
   try {
     const data = await User.findById(req.body.userId);
+
+
+   
+    
+    
+
+
+
     if (data) {
       res
         .status(200)
@@ -129,6 +138,7 @@ const getChatHistory = async (req, res) => {
 //add event to db
 const addEvent = async (req, res) => {
   try {
+   
     const data = await User.findByIdAndUpdate(req.body.userId, {
       $push: {
         schedules: {

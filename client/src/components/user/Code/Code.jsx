@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../css/Code.css";
 import { useDispatch } from "react-redux";
 import { showCode } from "../../../redux/codeSectionSwitch";

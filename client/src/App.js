@@ -24,6 +24,7 @@ function App() {
 
   return (
     <>
+    
       <Toaster position="top-center" reverseOrder={false} />
       <Notifications className="notification"/>
       {loading && (

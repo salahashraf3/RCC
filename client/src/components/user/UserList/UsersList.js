@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import socket from "../../../socket";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";

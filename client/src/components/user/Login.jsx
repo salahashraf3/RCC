@@ -3,7 +3,6 @@ import "./css/Login.css";
 import { FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 // import axios from "axios";
-import { request } from "./axios.js";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";

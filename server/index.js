@@ -2,12 +2,13 @@ const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
+const jwt = require("jsonwebtoken");
 const PORT = process.env.PORT || 5000;
 const path = require("path");
 const chatHistoryModel = require("./model/chatHistory");
-const { ObjectId } = require("mongodb")
-
-
+const { ObjectId } = require("mongodb");
+const User = require("./model/userModel");
+var CronJob = require("cron").CronJob;
 
 //env config
 require("dotenv").config();
@@ -27,6 +28,29 @@ app.use(express.static(path.join(__dirname, "public")));
 // Socket
 io.on("connection", (socket) => {
   console.log(`New User connected: ${socket.id}`);
+
+  socket.on("check-notifications", ({ userId }) => {
+    let Userdata;
+    jwt.verify(userId, process.env.JWT_Secret, async (err, data) => {
+      Userdata = await User.findById(data.id);
+    });
+
+    var job = new CronJob(
+      "* * * * * *",
+       ()  => {
+        let schedules = Userdata.schedules
+        schedules.forEach((element) => {
+          let todayDate = new Date()
+          let date = new Date(element.date)
+          if(todayDate == date){
+            socket.emit("send-notifications" , {data: element})
+          }
+        });
+      },
+      true,
+      "Asia/Kolkata"
+    );
+  });
 
   socket.on("disconnect", () => {
     socket.disconnect();

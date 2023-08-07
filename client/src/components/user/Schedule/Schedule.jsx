@@ -7,7 +7,6 @@ import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import { request } from "../axios";
 import { useNavigate } from "react-router-dom";
-import useUserData from "../Hooks/useUserData";
 import { toast } from "react-hot-toast";
 
 function Schedule() {
