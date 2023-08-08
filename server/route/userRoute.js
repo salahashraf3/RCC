@@ -27,5 +27,9 @@ userRoute.post("/addEvent" , authMiddleware, userContoller.addEvent)
 //dlete event
 userRoute.post("/deleteEvent", authMiddleware,userContoller.removeEvent)
 
+//upload image 
+userRoute.post("/uploadImage" , authMiddleware ,userContoller.uploadImage)
+
+
 
 module.exports = userRoute;

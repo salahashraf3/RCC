@@ -11,6 +11,7 @@
   "author": "Hyunse Kim",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^1.40.0",
     "cors": "^2.8.5",
     "cron": "^2.4.0",
     "dotenv": "^16.3.1",

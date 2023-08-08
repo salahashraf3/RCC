@@ -5,12 +5,62 @@ import { hideLoading, showLoading } from "../../../redux/alertsSlice";
 import { request } from "../axios";
 import useUserData from "../Hooks/useUserData";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 function ProfileEdit() {
   const userData = useUserData();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const uploadSingleImage = async (base64) => {
+    dispatch(showLoading());
+
+    const response = await axios.post(
+      "/api/user/uploadImage",
+      {
+        image: base64,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
+    dispatch(hideLoading());
+
+    if (response.data.success) {
+      navigate("/")
+      toast.success("profile updated successfully")
+    } else {
+      console.log("errororr");
+    }
+  };
+
+  const uploadImage = async (event) => {
+    const files = event.target.files;
+
+    if (files.length === 1) {
+      const base64 = await convertBase64(files[0]);
+      uploadSingleImage(base64);
+      return;
+    }
+  };
 
   //handle user edit
   const handleUserEdit = async (e) => {
@@ -65,6 +115,12 @@ function ProfileEdit() {
           className="form-control"
           placeholder={userData.email}
         />
+      </div>
+      <label htmlFor="Email" className="my-3">
+        Profile edit
+      </label>
+      <div className="form-outline inputdiv">
+        <input type="file" onChange={uploadImage} />
       </div>
       <button className="btn btn-primary mt-4" type="submit">
         Edit

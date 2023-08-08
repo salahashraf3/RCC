@@ -3,7 +3,7 @@ const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 const jwt = require("jsonwebtoken");
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 const path = require("path");
 const chatHistoryModel = require("./model/chatHistory");
 const { ObjectId } = require("mongodb");
@@ -37,15 +37,17 @@ io.on("connection", (socket) => {
 
     var job = new CronJob(
       "* * * * * *",
-        ()  => {
-        let schedules = Userdata.schedules
-        schedules.forEach((element) => {
-          let todayDate = new Date()
-          let date = new Date(element.date)
-          if(todayDate >= date){
-            socket.emit("send-notifications" , {data: element})
-          }
-        });
+      () => {
+        let schedules = Userdata?.schedules;
+        if (schedules) {
+          schedules.forEach((element) => {
+            let todayDate = new Date();
+            let date = new Date(element.date);
+            if (todayDate == date) {
+              socket.emit("send-notifications", { data: element });
+            }
+          });
+        }
       },
       true,
       "Asia/Kolkata"

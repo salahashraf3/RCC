@@ -7,6 +7,21 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const chatHistoryModel = require("../model/chatHistory");
 
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "djc5wnfyy",
+  api_key: "142765546452766",
+  api_secret: "uiKiJNLSkjoDvwTLTuHBhkx21wQ",
+});
+
+const opts = {
+  overwrite: true,
+  invalidate: true,
+  resource_type: "auto",
+};
+
+
 
 
 
@@ -170,6 +185,20 @@ const removeEvent = async (req, res) => {
   }
 };
 
+const uploadImage = async (req,res) => {
+  try {
+    console.log("first")
+    const image = req.body.image;
+    const imageUpload = await cloudinary.uploader.upload(image, opts)
+    await User.findByIdAndUpdate(req.body.userId , {
+      profile: imageUpload.secure_url
+    })
+    res.status(200).send({message: "Profile updated succesfully " , success: true })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   postRegister,
   postLogin,
@@ -177,5 +206,6 @@ module.exports = {
   editUserById,
   getChatHistory,
   addEvent,
-  removeEvent
+  removeEvent,
+  uploadImage
 };

@@ -7,7 +7,6 @@ import { showProfile } from "../../redux/userProfileSwitch";
 import { useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import socket from "../../socket";
-import { switchTheme } from "../../redux/themeSlice";
 import uniqid from "uniqid";
 import useUserData from "./Hooks/useUserData";
 import TimeAgo from "javascript-time-ago";

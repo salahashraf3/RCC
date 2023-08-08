@@ -28,10 +28,11 @@ const Room = (props) => {
   const roomId = useParams().roomID;
 
   useEffect(() => {
-    
+    console.log(peers + "peers");
+    console.log(peersRef + "peersRef");
+
     // Get Video Devices
     navigator.mediaDevices.enumerateDevices().then((devices) => {
-      console.log(devices);
       const filtered = devices.filter((device) => device.kind === "videoinput");
       setVideoDevices(filtered);
     });
@@ -43,8 +44,6 @@ const Room = (props) => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
-
-
         addNotification({
           title: "Room ID",
           duration: 30000,
@@ -56,7 +55,6 @@ const Room = (props) => {
           backgroundTop: "black",
           backgroundBottom: "grey",
         });
-
 
         userVideoRef.current.srcObject = stream;
         userStream.current = stream;

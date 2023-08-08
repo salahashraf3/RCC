@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import axios from "axios";
+import { request } from "./axios";
 
 function Login() {
   const dispatch = useDispatch();
@@ -26,37 +27,41 @@ function Login() {
     } else {
       dispatch(showLoading());
 
+      // const response = await axios.post("/api/user/login", {
+      //   email: e.target.email.value,
+      //   password: e.target.password.value,
+      // });
 
-      const response = await axios.post("/api/user/login",{
-        email: e.target.email.value,
-          password: e.target.password.value,
-      })
+      // if (response.data.success) {
+      //   toast.success(response.data.message);
+      //   localStorage.setItem("token", response.data.token);
+      //   navigate("/");
+      // } else {
+      //   toast.error(response.data.message);
+      // }
 
-      if (response.data.success) {
-            toast.success(response.data.message);
-            localStorage.setItem("token", response.data.token);
-            navigate("/");
-          } else {
-            toast.error(response.data.message);
-          }
+        const test = request({
+          url: "/api/user/login",
+          method: "post",
+          data: {
+            email: e.target.email.value,
+            password: e.target.password.value,
+          },
+        });
+        test
+          .then((data) => {
+            if (data.data.success) {
+              toast.success(data.data.message);
+              localStorage.setItem("token", data.data.token);
+              navigate("/");
+            } else {
+              toast.error(data.data.message);
+            }
+          })
+          .catch((err) => console.log(err));
 
 
-      // request({
-      //   url: "/api/user/login",
-      //   method: "post",
-      //   data: {
-      //     email: e.target.email.value,
-      //     password: e.target.password.value,
-      //   },
-      // }).then((data) => {
-      //   if (data.data.success) {
-      //     toast.success(data.data.message);
-      //     localStorage.setItem("token", data.data.token);
-      //     navigate("/");
-      //   } else {
-      //     toast.error(data.data.message);
-      //   }
-      // }).catch(err=>console.log(err))
+     
       dispatch(hideLoading());
     }
   };

@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
 import axios from "axios";
+import { request } from "./axios";
 
 function Register() {
   const dispatch = useDispatch();
@@ -30,35 +31,35 @@ function Register() {
     } else {
       dispatch(showLoading());
 
-      const response = await axios.post("/api/user/register", {
-        name: e.target.name.value,
-        email: e.target.email.value,
-        password: e.target.password.value,
-      });
-      if (response.data.success) {
-            toast.success(response.data.message);
-        navigate("/login");
-          } else {
-            toast.error(response.data.message);
-          }
+      // const response = await axios.post("/api/user/register", {
+      //   name: e.target.name.value,
+      //   email: e.target.email.value,
+      //   password: e.target.password.value,
+      // });
+      // if (response.data.success) {
+      //       toast.success(response.data.message);
+      //   navigate("/login");
+      //     } else {
+      //       toast.error(response.data.message);
+      //     }
 
-      // request({
-      //   url: "/api/user/register",
-      //   method: "post",
-      //   data: {
-      //     name: e.target.name.value,
-      // email: e.target.email.value,
-      // password: e.target.password.value,
-      //   },
-      // }).then((data) => {
-      //   console.log(data.data)
-      //   if (data.data.success) {
-      //     toast.success(data.data.message);
-      // navigate("/login");
-      //   } else {
-      //     toast.error(data.data.message);
-      //   }
-      // }).catch(err=>console.log(err))
+      request({
+        url: "/api/user/register",
+        method: "post",
+        data: {
+          name: e.target.name.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+        },
+      }).then((data) => {
+        console.log(data.data)
+        if (data.data.success) {
+          toast.success(data.data.message);
+      navigate("/login");
+        } else {
+          toast.error(data.data.message);
+        }
+      }).catch(err=>console.log(err))
 
       dispatch(hideLoading());
     }
