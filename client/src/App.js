@@ -25,13 +25,13 @@ function App() {
   return (
     <>
     
-      <Toaster position="top-center" reverseOrder={false} />
-      <Notifications className="notification"/>
       {loading && (
         <div className="spinner-parent">
           <div className="spinner-border" role="status"></div>
         </div>
       )}
+      <Toaster position="top-center" reverseOrder={false} />
+      <Notifications className="notification"/>
       <Routes>
         {/* Home */}
         <Route

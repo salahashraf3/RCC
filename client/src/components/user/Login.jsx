@@ -1,12 +1,10 @@
 import React from "react";
 import "./css/Login.css";
-import { FaUser } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-// import axios from "axios";
+import {  BsGoogle } from "react-icons/bs";
+import {  useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
-import axios from "axios";
 import { request } from "./axios";
 
 function Login() {
@@ -27,89 +25,103 @@ function Login() {
     } else {
       dispatch(showLoading());
 
-      // const response = await axios.post("/api/user/login", {
-      //   email: e.target.email.value,
-      //   password: e.target.password.value,
-      // });
-
-      // if (response.data.success) {
-      //   toast.success(response.data.message);
-      //   localStorage.setItem("token", response.data.token);
-      //   navigate("/");
-      // } else {
-      //   toast.error(response.data.message);
-      // }
-
-        const test = request({
-          url: "/api/user/login",
-          method: "post",
-          data: {
-            email: e.target.email.value,
-            password: e.target.password.value,
-          },
-        });
-        test
-          .then((data) => {
-            if (data.data.success) {
-              toast.success(data.data.message);
-              localStorage.setItem("token", data.data.token);
-              navigate("/");
-            } else {
-              toast.error(data.data.message);
-            }
-          })
-          .catch((err) => console.log(err));
-
-
-     
-      dispatch(hideLoading());
+      request({
+        url: "/api/user/login",
+        method: "post",
+        data: {
+          email: e.target.email.value,
+          password: e.target.password.value,
+        },
+      })
+        .then((data) => {
+          dispatch(hideLoading());
+          if (data.data.success) {
+            toast.success(data.data.message);
+            localStorage.setItem("token", data.data.token);
+            navigate("/");
+          } else {
+            toast.error(data.data.message);
+          }
+        })
+        .catch((err) => console.log(err));
     }
   };
   return (
     <>
       <div className="main-Container">
-        <div className="Container">
-          <div className="heading mb-4 d-flex justify-content-between align-items-center">
-            <h2>Login</h2>
-            <Link
-              to="/register"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <FaUser />
-            </Link>
-          </div>
-          <div className="form">
-            <form onSubmit={handleSubmit}>
-              {/* email */}
-              <div class="input-group mb-3 mt-5">
+        <div className="login-block">
+          <img src="/images/covercopy.png" alt="Scanfcode" height={"80px"} />
+          <h1>Log into your account</h1>
+          <form action="">
+            {/* <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-user ti-user me-3"></i>
+                </span>
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Email"
-                  aria-label="Email"
-                  aria-describedby="basic-addon1"
-                  name="email"
+                  placeholder="Your name"
                 />
               </div>
+            </div> */}
 
-              {/* password */}
-              <div class="input-group mb-3 mt-5">
+            {/* <hr class="hr-xs" /> */}
+
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-envelope ti-email me-3"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Your email address"
+                />
+              </div>
+            </div>
+
+            <hr class="hr-xs" />
+
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-lock ti-unlock me-3"></i>
+                </span>
                 <input
                   type="password"
                   class="form-control"
-                  placeholder="Passwrod"
-                  aria-label="Password"
-                  aria-describedby="basic-addon1"
-                  name="password"
+                  placeholder="Enter your password"
                 />
               </div>
-              <div className="button d-flex justify-content-end mt-4">
-                <button className="btn btn-primary" type="submit">
-                  Login
-                </button>
-              </div>
-            </form>
-          </div>
+            </div>
+
+            <button
+              class="btn btn-primary btn-block px-5 py-2 mt-5"
+              type="submit"
+            >
+              Login
+            </button>
+
+            <div class="login-footer">
+              <h6>Or login with</h6>
+              <ul class="social-icons">
+                <li>
+                  <a class="linkedin" href="#">
+                    <BsGoogle />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
+        <div class="login-links">
+          <p class="text-center">
+            Doesn't have an account?{" "}
+            <a class="txt-brand" href="/register">
+              Register
+            </a>
+          </p>
         </div>
       </div>
     </>

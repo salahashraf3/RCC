@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import CodeMirror from "@uiw/react-codemirror";
+import React, { useState } from "react";
+// import CodeMirror from "@uiw/react-codemirror";
+import CodeEditor from "@uiw/react-textarea-code-editor";
 import { javascript } from "@codemirror/lang-javascript";
 import { html } from "@codemirror/lang-html";
 import { less } from "@codemirror/lang-less";
@@ -10,10 +11,6 @@ import { IoLogoHtml5, IoLogoCss3, IoLogoJavascript } from "react-icons/io";
 import "../css/Code.css";
 
 function CodeMirrors() {
-  useEffect(() => {
-    sockets.emit("helloo", { data: "helloo world" });
-  }, []);
-
   const [Html, setHtml] = useState("");
   const [css, setCss] = useState("");
   const [js, setJs] = useState("");
@@ -43,7 +40,7 @@ function CodeMirrors() {
       <div className="test d-flex ">
         <div className="code_mirror_container d-flex flex-column justify-between my-2 mx-2 ">
           <IoLogoHtml5 />
-          <CodeMirror
+          {/* <CodeMirror
             value={Html}
             height="230px"
             width="475px"
@@ -53,9 +50,23 @@ function CodeMirrors() {
               setHtml(value);
               sockets.emit("enter-html", { value, roomId });
             })}
+          /> */}
+          <CodeEditor
+            value={Html}
+            language="html"
+            placeholder="Please enter html code."
+            onChange={(value) => {
+              setHtml(value.target.value);
+              sockets.emit("enter-html", { value: value.target.value, roomId });
+            }}
+            style={{
+              fontSize: "16px",
+              width: "400px",
+              height: "300px",
+            }}
           />
           <IoLogoCss3 className="mt-1" />
-          <CodeMirror
+          {/* <CodeMirror
             value={css}
             height="230px"
             width="475px"
@@ -63,11 +74,25 @@ function CodeMirrors() {
             extensions={[less({ jsx: true })]}
             onChange={React.useCallback((value) => {
               setCss(value);
-              sockets.emit("enter-css", { value, roomId });
+              // sockets.emit("enter-css", { value, roomId });
             })}
+          /> */}
+          <CodeEditor
+            value={css}
+            language="css"
+            placeholder="Please enter css code."
+            onChange={(value) => {
+              setCss(value.target.value);
+              sockets.emit("enter-css", { value: value.target.value, roomId });
+            }}
+            style={{
+              fontSize: "16px",
+              width: "400px",
+              height: "300px",
+            }}
           />
           <IoLogoJavascript className="mt-1" />
-          <CodeMirror
+          {/* <CodeMirror
             value={js}
             height="230px"
             width="475px"
@@ -77,6 +102,20 @@ function CodeMirrors() {
               setJs(value);
               sockets.emit("enter-js", { value, roomId });
             })}
+          /> */}
+          <CodeEditor
+            value={js}
+            language="js"
+            placeholder="Please enter js code."
+            onChange={(value) => {
+              setJs(value.target.value);
+              sockets.emit("enter-js", { value: value.target.value, roomId });
+            }}
+            style={{
+              fontSize: "16px",
+              width: "400px",
+              height: "300px",
+            }}
           />
         </div>
 

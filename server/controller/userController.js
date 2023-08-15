@@ -21,10 +21,6 @@ const opts = {
   resource_type: "auto",
 };
 
-
-
-
-
 //post register
 const postRegister = async (req, res) => {
   try {
@@ -36,6 +32,7 @@ const postRegister = async (req, res) => {
         email: req.body.email,
         name: req.body.name,
         password: await securePassword(req.body.password),
+        number: req.body.number,
       });
 
       await data.save();
@@ -146,7 +143,6 @@ const getChatHistory = async (req, res) => {
 //add event to db
 const addEvent = async (req, res) => {
   try {
-   
     const data = await User.findByIdAndUpdate(req.body.userId, {
       $push: {
         schedules: {
@@ -171,7 +167,7 @@ const addEvent = async (req, res) => {
 const removeEvent = async (req, res) => {
   try {
     const data = await User.findByIdAndUpdate(req.body.userId, {
-      $pull: { schedules : {_id: req.body.eventId}},
+      $pull: { schedules: { _id: req.body.eventId } },
     });
 
     res.status(200).send({
@@ -185,19 +181,21 @@ const removeEvent = async (req, res) => {
   }
 };
 
-const uploadImage = async (req,res) => {
+const uploadImage = async (req, res) => {
   try {
-    console.log("first")
+    console.log("first");
     const image = req.body.image;
-    const imageUpload = await cloudinary.uploader.upload(image, opts)
-    await User.findByIdAndUpdate(req.body.userId , {
-      profile: imageUpload.secure_url
-    })
-    res.status(200).send({message: "Profile updated succesfully " , success: true })
+    const imageUpload = await cloudinary.uploader.upload(image, opts);
+    await User.findByIdAndUpdate(req.body.userId, {
+      profile: imageUpload.secure_url,
+    });
+    res
+      .status(200)
+      .send({ message: "Profile updated succesfully ", success: true });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 module.exports = {
   postRegister,
@@ -207,5 +205,5 @@ module.exports = {
   getChatHistory,
   addEvent,
   removeEvent,
-  uploadImage
+  uploadImage,
 };
