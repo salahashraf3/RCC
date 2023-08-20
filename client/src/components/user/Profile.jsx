@@ -21,6 +21,8 @@ function Profile() {
   //logout btn
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    localStorage.removeItem("profile");
     dispatch(showProfile());
     navigate("/");
   };
@@ -65,11 +67,11 @@ function Profile() {
           <div className="profile-pic my-3">
             <img
               className="img-profile "
-              src={userData.profile}
-              alt="test"
+              src={userData.profile || localStorage.getItem("profile")}
+              alt="User"
               srcset=""
             />
-            <p>{userData.name}</p>
+            <p>{userData?.name || localStorage.getItem("name")}</p>
           </div>
           <div className="items-list">
             <div className="test">

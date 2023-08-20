@@ -11,6 +11,9 @@ userRoute.post("/register", userContoller.postRegister);
 //login
 userRoute.post("/login", userContoller.postLogin);
 
+//google login
+userRoute.post("/gLogin" , userContoller.gLogin)
+
 //getuserdata
 userRoute.post("/getUserDataById", authMiddleware, userContoller.getUserData);
 

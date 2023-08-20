@@ -15,6 +15,9 @@ function Schedule() {
   const [event, setEvent] = useState();
   const navigate = useNavigate();
 
+  const today = new Date(); // Get the current date
+  const todayISO = today.toISOString().split("T")[0];
+
   const getData = async () => {
     request({
       url: "/api/user/getUserDataById",
@@ -53,8 +56,13 @@ function Schedule() {
   };
 
   const handleDateClick = (data) => {
-    setOpen(true);
-    setClickedDate(data.dateStr);
+    const today = new Date();
+    if (data.date >= today ) {
+      console.log("success");
+
+      setOpen(true);
+      setClickedDate(data.dateStr);
+    }
   };
 
   const deleteEvent = (data) => {
@@ -95,8 +103,9 @@ function Schedule() {
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
-        weekends={false}
+        weekends={true}
         events={event}
+        initialDate={new Date()}
         dateClick={handleDateClick}
         eventClick={deleteEvent}
       />

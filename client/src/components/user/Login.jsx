@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./css/Login.css";
-import {  BsGoogle } from "react-icons/bs";
-import {  useNavigate } from "react-router-dom";
+import { BsGoogle } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/alertsSlice";
@@ -46,28 +46,15 @@ function Login() {
         .catch((err) => console.log(err));
     }
   };
+
+ 
   return (
     <>
       <div className="main-Container">
         <div className="login-block">
           <img src="/images/covercopy.png" alt="Scanfcode" height={"80px"} />
           <h1>Log into your account</h1>
-          <form action="">
-            {/* <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon">
-                  <i class="fa fa-user ti-user me-3"></i>
-                </span>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Your name"
-                />
-              </div>
-            </div> */}
-
-            {/* <hr class="hr-xs" /> */}
-
+          <form onSubmit={handleSubmit}>
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon">
@@ -77,6 +64,7 @@ function Login() {
                   type="text"
                   class="form-control"
                   placeholder="Your email address"
+                  name="email"
                 />
               </div>
             </div>
@@ -92,6 +80,7 @@ function Login() {
                   type="password"
                   class="form-control"
                   placeholder="Enter your password"
+                  name="password"
                 />
               </div>
             </div>
@@ -103,16 +92,7 @@ function Login() {
               Login
             </button>
 
-            <div class="login-footer">
-              <h6>Or login with</h6>
-              <ul class="social-icons">
-                <li>
-                  <a class="linkedin" href="#">
-                    <BsGoogle />
-                  </a>
-                </li>
-              </ul>
-            </div>
+            
           </form>
         </div>
         <div class="login-links">

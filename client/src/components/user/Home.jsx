@@ -17,12 +17,7 @@ import Notifications from "react-notifications-menu";
 TimeAgo.addDefaultLocale(en);
 
 function Home() {
-  const [notificationData, setnotificationData] = useState([
-    {
-      message: "Test Notification",
-      receivedTime: <ReactTimeAgo date={new Date()} locale="en-US" />,
-    },
-  ]);
+  const [notificationData, setnotificationData] = useState([]);
   const userData = useUserData();
   const currentTheme = useSelector((state) => state.themeSwitch.dark);
 
@@ -115,9 +110,6 @@ function Home() {
           />
         </div>
         <div className="profile">
-          {/* <Link onClick={() => dispatch(switchTheme())}>
-            <FaThemeco className="User-logo me-5" />
-          </Link> */}
           <Link>
             <div className="notification-container">
               <Notifications

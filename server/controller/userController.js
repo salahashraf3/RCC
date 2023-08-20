@@ -75,6 +75,22 @@ const postLogin = async (req, res) => {
   }
 };
 
+//google login 
+const gLogin = (req,res) => {
+  try {
+
+    const token = jwt.sign({ id: req.body.name }, process.env.JWT_Secret, {
+      expiresIn: "1d",
+    });
+    res
+      .status(200)
+      .send({ message: "User logged in successfully", success: true, token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Server side Error ", success: false });
+  }
+}
+
 //get user data by id
 const getUserData = async (req, res) => {
   try {
@@ -206,4 +222,5 @@ module.exports = {
   addEvent,
   removeEvent,
   uploadImage,
+  gLogin,
 };

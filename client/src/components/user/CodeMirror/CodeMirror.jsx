@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-// import CodeMirror from "@uiw/react-codemirror";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { javascript } from "@codemirror/lang-javascript";
-import { html } from "@codemirror/lang-html";
-import { less } from "@codemirror/lang-less";
-import { dracula } from "@uiw/codemirror-theme-dracula";
 import sockets from "../../../socket";
 import { useParams } from "react-router-dom";
 import { IoLogoHtml5, IoLogoCss3, IoLogoJavascript } from "react-icons/io";
