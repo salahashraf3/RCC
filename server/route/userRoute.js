@@ -31,7 +31,11 @@ userRoute.post("/addEvent" , authMiddleware, userContoller.addEvent)
 userRoute.post("/deleteEvent", authMiddleware,userContoller.removeEvent)
 
 //upload image 
-userRoute.post("/uploadImage" , authMiddleware ,userContoller.uploadImage)
+// userRoute.post("/uploadImage" , authMiddleware ,userContoller.uploadImage)
+userRoute.post("/uploadImage" ,(req,res) => {
+    console.log("reached")
+})
+
 
 
 
