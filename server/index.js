@@ -187,6 +187,7 @@ io.on("connection", (socket) => {
     // io.sockets.in(roomId).emit("FE-receive-message", { msg, sender });
     io.sockets.in(roomId).clients((err, clients) => {
       try {
+        console.log(clients)
         const users = [];
         clients.forEach((client) => {
           // Add User List
