@@ -6,7 +6,6 @@ import { request } from "../axios";
 import useUserData from "../Hooks/useUserData";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { request } from "../axios";
 
 function ProfileEdit() {
   const userData = useUserData();
@@ -64,12 +63,12 @@ function ProfileEdit() {
        toast.error("errorr")
       })
 
-    if (response.data.success) {
-      navigate("/")
-      toast.success("profile updated successfully")
-    } else {
-      console.log("errororr");
-    }
+    // if (response.data.success) {
+    //   navigate("/")
+    //   toast.success("profile updated successfully")
+    // } else {
+    //   console.log("errororr");
+    // }
   };
 
   const uploadImage = async (event) => {
